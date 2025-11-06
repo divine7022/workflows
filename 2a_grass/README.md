@@ -32,6 +32,25 @@ All instructions below assume you are working on a Linux cluster that uses Slurm
 
 ## How to run the workflow
 
+### Install SIPNET Binary
+
+If you haven't already installed SIPNET, this downloads the SIPNET v2.0.0 binary and creates symlink. We recommend keeping it in the project root directory for easy access by all workflow components:
+
+```
+wget -O ../sipnet https://github.com/PecanProject/sipnet/releases/download/v2.0.0/sipnet
+chmod +x ../sipnet
+ln -sf ../sipnet ../sipnet.git
+```
+
+### Install or update PEcAn
+
+If this is a brand-new installation, expect this step to take a few hours to download and compile more than 300 R packages. If you've installed PEcAn on this machine before, expect it to be just a few minutes of updating only the PEcAn packages and any dependencies whose version requirement has changed.
+Defaults to using 4 CPUs to compile packages in parallel. If you have more cores, adjust `sbatch`'s `--cpus-per-task` parameter.
+
+```
+sbatch -o install_pecan.out ../tools/install_pecan.sh
+```
+
 ### Copy prebuilt input artifacts
 
 These are files that were easier to prepare from the (many terabytes of) raw
